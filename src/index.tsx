@@ -16,11 +16,15 @@ type ExperimentsProps = {
   style: ViewStyle;
 };
 
-const ComponentName = 'ExperimentsView';
+// const ComponentName = 'ExperimentsView';
 
-export const ExperimentsView =
-  UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<ExperimentsProps>(ComponentName)
-    : () => {
-        throw new Error(LINKING_ERROR);
-      };
+// export const ExperimentsView =
+//   UIManager.getViewManagerConfig(ComponentName) != null
+//     ? requireNativeComponent<ExperimentsProps>(ComponentName)
+//     : () => {
+//         throw new Error(LINKING_ERROR);
+//       };
+
+export const DemoViewManager = requireNativeComponent(
+  'DemoViewManager'
+);

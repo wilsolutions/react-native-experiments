@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { UIManager, findNodeHandle } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio } from 'react-native';
 
 // import { DemoViewManager } from './DemoViewManager';
 import { DemoViewManager } from 'react-native-experiments';
@@ -20,6 +20,12 @@ export const DemoView = () => {
   }, []);
 
   return (
-    <DemoViewManager ref={ref} />
+    <DemoViewManager
+      ref={ref}
+      style={{
+        width: PixelRatio.getPixelSizeForLayoutSize(80),
+        height: PixelRatio.getPixelSizeForLayoutSize(80),
+      }}
+    />
   );
 };

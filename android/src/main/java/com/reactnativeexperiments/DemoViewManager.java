@@ -26,6 +26,8 @@ public class DemoViewManager extends ViewGroupManager<FrameLayout> {
 
   public static final String REACT_CLASS = "DemoViewManager";
   public final int COMMAND_CREATE = 1;
+  private int propWidth;
+  private int propHeight;
 
   ReactApplicationContext reactContext;
 
@@ -73,24 +75,25 @@ public class DemoViewManager extends ViewGroupManager<FrameLayout> {
     }
   }
 
+  @ReactPropGroup(names = {"width", "height"}, customType = "Style")
+  public void setStyle(FrameLayout view, int index, Integer value) {
+    if (index == 0) {
+      propWidth = value;
+    }
+
+    if (index == 1) {
+      propHeight = value;
+    }
+  }
+
   /**
    * Replace your React Native view with a custom fragment
    */
   public void createFragment(FrameLayout root, int reactNativeViewId) {
-    ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId).getParent();
+    ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId);
     setupLayout(parentView);
 
     final DemoFragment myFragment = new DemoFragment();
-
-//    TextView t = new TextView(reactContext);
-//    t.setTextColor(Color.RED);
-//    t.setPadding(0, 60, 10, 10);
-//    t.setTextSize(40);
-//    t.setText("Text created on the fly from Native side, but does not appear.");
-//    t.setHeight(250);
-
-
-//    parentView.addView(t);
 
     FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
 
@@ -117,15 +120,13 @@ public class DemoViewManager extends ViewGroupManager<FrameLayout> {
    */
   public void manuallyLayoutChildren(View view) {
     // propWidth and propHeight coming from react-native props
-//    int width = propWidth;
-//    int height = propHeight;
-    int width = 800;
-    int height = 800;
+    int width = propWidth;
+    int height = propHeight;
 
     view.measure(
       View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
       View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
 
-    view.layout(110, 110, width, height);
+    view.layout(0, 0, width, height);
   }
 }
